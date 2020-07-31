@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Ionic App</title>
+
+    <base href="/" />
+
+    <meta name="color-scheme" content="light dark" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+
+    <!-- add to homescreen for ios -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+
+    <!-- Probando implementar el componente de mapas -->
+
+    <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?branch=experimental' async defer></script>
+
+    <!-- Implementacion estatica correcta de bing maps -->
+    <!-- <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap' async defer></script>
+
+    <script>
+        function GetMap() {
+            var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+                credentials: 'AmCGuxbB5024rje8eYxV5934ktMcR6_YqIGBQ8qJETu15KBzSskcYGCQBlsmgLrm',
+                // center: new Microsoft.Maps.Location(51.50632, -0.12714),
+                // center: mapLocation,
+                mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+                zoom: 10
+            });
+
+            //Add your post map load code here.
+            var center = map.getCenter();
+            var Events = Microsoft.Maps.Events;
+            var Location = Microsoft.Maps.Location;
+            var Pushpin = Microsoft.Maps.Pushpin;
+            var pins = [
+
+                new Pushpin(new Location(center.latitude, center.longitude - 0.1), {
+                    color: '#0f0',
+                    draggable: true,
+                    icon: "./assets/logo/puntero.png",
+                    anchor: new Microsoft.Maps.Point(12, .9)
+                }),
+            ];
+
+            map.entities.push(pins);
+            // Binding the events for the green pin
+            Events.addHandler(pins[0], 'drag', function() {
+                console.log('se esta arrastrando');
+            });
+            Events.addHandler(pins[0], 'dragend', function() {
+
+                console.log('Se termino se mover');
+                console.log(pins[0].getLocation());
+            });
+            Events.addHandler(pins[0], 'dragstart', function() {
+                console.log('se inicia a mover');
+            });
+
+        }
+
+        function highlight(id) {
+            document.getElementById(id).style.background = 'LightGreen';
+            setTimeout(function() {
+                document.getElementById(id).style.background = 'white';
+            }, 1000);
+        }
+    </script> -->
+
+</head>
+
+<body>
+    <app-root></app-root>
+</body>
+
+</html>
