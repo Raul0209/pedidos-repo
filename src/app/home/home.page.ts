@@ -13,31 +13,53 @@ export class HomePage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    setTimeout(async () => {
+      await this.cargarMapa();
+      await this.pintarUbicacionActual();
+    }, 200);
 
   }
 
   ngAfterViewInit() {
-    this.cargarMapa();
+
+  }
+
+  getCurrentLocation: () => Promise<Position> = () => {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(position => {
+        resolve(position);
+      }, positionError => {
+        reject(positionError);
+      });
+    });
+  }
+
+  pintarUbicacionActual: () => Promise<void> = async () => {
+    try {
+      var currentLoc = await this.getCurrentLocation();
+      console.info(currentLoc);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   cargarMapa() {
-    var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+    var mapa = document.getElementById('myMap');
+    var map = new Microsoft.Maps.Map(mapa, {
       credentials: 'AmCGuxbB5024rje8eYxV5934ktMcR6_YqIGBQ8qJETu15KBzSskcYGCQBlsmgLrm',
-      // center: new Microsoft.Maps.Location(51.50632, -0.12714),
+      center: new Microsoft.Maps.Location(14.6232399, -90.51997659999999),
       // center: mapLocation,
       mapTypeId: Microsoft.Maps.MapTypeId.aerial,
       zoom: 15
     });
-
-
+    
     //Add your post map load code here.
     var center = map.getCenter();
     var Events = Microsoft.Maps.Events;
     var Location = Microsoft.Maps.Location;
     var Pushpin = Microsoft.Maps.Pushpin;
     var pins = [
-
-      new Pushpin(new Location(center.latitude, center.longitude - 0.1), {
+      new Pushpin(new Location(14.6232399, -90.51997659999999), {
         color: '#0f0',
         draggable: true,
         icon: "./assets/logo/puntero.png",
@@ -51,7 +73,6 @@ export class HomePage implements OnInit {
       console.log('se esta arrastrando');
     });
     Events.addHandler(pins[0], 'dragend', function () {
-
       console.log('Se termino se mover');
       console.log(pins[0].getLocation());
     });
@@ -59,9 +80,7 @@ export class HomePage implements OnInit {
       console.log('se inicia a mover');
     });
 
-
     var polygon = new Microsoft.Maps.Polygon(
-
       //  {
       //   visible:false
       // },
@@ -73,19 +92,14 @@ export class HomePage implements OnInit {
         new Microsoft.Maps.Location(14.604485, -90.501742),
         new Microsoft.Maps.Location(14.604000, -90.560000),
         new Microsoft.Maps.Location(14.618207, -90.525245),
+        new Microsoft.Maps.Location(14.6232399, -90.51997659999999)
       ],
       {
-
-        visible: false
-
-      }
-      ,
-
+        visible: true
+      },
     );
     map.entities.push(polygon);
   }
-
-
 
 
 }
